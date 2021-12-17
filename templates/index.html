@@ -146,10 +146,10 @@
             <div class="modal-body">
               <div class="container-fluid">
                 <div class="row">
-                  <label for="time-{{ toilet.id }}" class="col-6 col-form-label">Choississez votre horaire:</label>
+                  <label for="time-{{ toilet.id }}" class="col-3 col-form-label">Horaire:</label>
                   <div class="col-6">
                     <div class="input-group mb-3">
-                      <input type="text" id="time-{{ toilet.id }}" class="form-control" placeholder="Horaire" aria-label="Horaire" aria-describedby="time-{{ toilet.id }}-addon">
+                      <input type="text" name="time-{{ toilet.id }}" id="time-{{ toilet.id }}" class="form-control" placeholder="Horaire" aria-label="Horaire" aria-describedby="time-{{ toilet.id }}-addon">
                       <span class="input-group-text" id="time-{{ toilet.id }}-addon"><i class="bi bi-calendar"></i></span>
                     </div>
                   </div>
@@ -232,7 +232,8 @@
             interval: 10,
             startTime: 9,
             endTime: 18,
-            leadingZero: true
+            leadingZero: true,
+            disabled: [{% for item in toilet.disabled %}'{{item.time}}'{% endfor %}]
         });
       {% endfor %}
     </script>
