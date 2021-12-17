@@ -1,12 +1,7 @@
 from flask import Flask, render_template, session, request, url_for, redirect, Markup
 from datetime import datetime, date, time, timedelta
 from pymongo import MongoClient
-import locale
 import os
-
-# Locale
-loc = locale.getlocale()
-locale.setlocale(locale.LC_ALL, 'fr_FR')
 
 # Run the app
 app = Flask(__name__)
