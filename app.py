@@ -14,11 +14,11 @@ app.secret_key = os.environ['FLASK_SECRET_KEY']
 
 client = MongoClient(os.environ['MONGODB_URL'])
 toilets = client.condecrotte.toilets
-toilets.replace_one({"id": "toilet-m-1"}, {"id": "toilet-w-1", "name": "Toilette Femme 1", "available": True}, upsert=True)
-toilets.replace_one({"id": "toilet-m-2"}, {"id": "toilet-w-2", "name": "Toilette Femme 2", "available": True}, upsert=True)
-toilets.replace_one({"id": "toilet-m-3"}, {"id": "toilet-w-3", "name": "Toilette Femme 3", "available": True}, upsert=True)
-toilets.replace_one({"id": "toilet-m-4"}, {"id": "toilet-w-4", "name": "Toilette Femme 4", "available": True}, upsert=True)
-toilets.replace_one({"id": "toilet-m-5"}, {"id": "toilet-w-5", "name": "Toilette Femme 5 (Handicap)", "available": True}, upsert=True)
+toilets.replace_one({"id": "toilet-w-1"}, {"id": "toilet-w-1", "name": "Toilette Femme 1", "available": True}, upsert=True)
+toilets.replace_one({"id": "toilet-w-2"}, {"id": "toilet-w-2", "name": "Toilette Femme 2", "available": True}, upsert=True)
+toilets.replace_one({"id": "toilet-w-3"}, {"id": "toilet-w-3", "name": "Toilette Femme 3", "available": True}, upsert=True)
+toilets.replace_one({"id": "toilet-w-4"}, {"id": "toilet-w-4", "name": "Toilette Femme 4", "available": True}, upsert=True)
+toilets.replace_one({"id": "toilet-w-5"}, {"id": "toilet-w-5", "name": "Toilette Femme 5 (Handicap)", "available": True}, upsert=True)
 
 toilets.replace_one({"id": "toilet-m-1"}, {"id": "toilet-m-1", "name": "Toilette Homme 1", "available": True}, upsert=True)
 toilets.replace_one({"id": "toilet-m-2"}, {"id": "toilet-m-2", "name": "Toilette Homme 2", "available": True}, upsert=True)

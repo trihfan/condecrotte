@@ -16,6 +16,27 @@
     <link rel="icon" type="image/png" href="{{url_for('static', filename='image/favicon.png')}}">
     <title>Condecrotte Sophia Genetics</title>
 
+    <style>
+      .blink_me {
+        animation: blinker 2s ease-in-out infinite;
+      }
+
+      @keyframes blinker {
+        50% {
+          opacity: 0.25;
+        }
+      }
+
+      .hover_me {
+        animation: hover 0.5s ease-in-out infinite;
+      }
+
+      @keyframes hover {
+        50% {
+          opacity: 0.75;
+        }
+      }
+    </style>
   </head>
   <body style="background-color: rgb(234, 237, 239); font-family: 'Source Sans Pro', sans-serif;">
     <!-- Scripts -->
@@ -38,12 +59,12 @@
     <!-- Content -->
     <div class="container-fluid">
       <div class="row justify-content-md-center">
-        <div class="col-9">
+        <div class="col-10">
           <div class="row mt-4">
 
             <!-- Left card -->
             <div class="col-4">
-              <div class="card" style="border-radius: 0 !important;">
+              <div class="card" style="border-radius: 0 !important; height:100%;">
                 <div class="card-body" style="color: rgb(91, 107, 117);">
 
                   <!-- Icon -->
@@ -77,7 +98,7 @@
                   <!-- Change status -->
                   <div class="row">
                     <div style="ml-4">
-                      <a href="">Changer votre status</a>
+                      <a href="" data-bs-toggle="modal" data-bs-target="#modal-surprise">Changer votre status</a>
                     </div>
                   </div>
                 </div>
@@ -111,48 +132,71 @@
     <!-- Modal -->
     {% for toilet in toilets %}
     <div class="modal fade" id="modal-{{ toilet.id }}" tabindex="-1" aria-labelledby="modal-{{ toilet.id }}-label" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-      <div class="modal-content">
-        <form method="post">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <form method="post">
 
-          <!-- Title !-->
-          <div class="modal-header">
-            <h5 class="modal-title" id="modal-{{ toilet.id }}-label">{{ toilet.name }}</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
+            <!-- Title !-->
+            <div class="modal-header">
+              <h5 class="modal-title" id="modal-{{ toilet.id }}-label">{{ toilet.name }}</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
 
-          <!-- Body !-->
-          <div class="modal-body">
-            <div class="container-fluid">
-              <div class="row">
-                <label for="time-{{ toilet.id }}" class="col-6 col-form-label">Choississez votre horaire:</label>
-                <div class="col-6">
-                  <div class="input-group mb-3">
-                    <input type="text" id="time-{{ toilet.id }}" class="form-control" placeholder="Horaire" aria-label="Horaire" aria-describedby="time-{{ toilet.id }}-addon">
-                    <span class="input-group-text" id="time-{{ toilet.id }}-addon"><i class="bi bi-calendar"></i></span>
+            <!-- Body !-->
+            <div class="modal-body">
+              <div class="container-fluid">
+                <div class="row">
+                  <label for="time-{{ toilet.id }}" class="col-6 col-form-label">Choississez votre horaire:</label>
+                  <div class="col-6">
+                    <div class="input-group mb-3">
+                      <input type="text" id="time-{{ toilet.id }}" class="form-control" placeholder="Horaire" aria-label="Horaire" aria-describedby="time-{{ toilet.id }}-addon">
+                      <span class="input-group-text" id="time-{{ toilet.id }}-addon"><i class="bi bi-calendar"></i></span>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
 
-          <!-- Buttons !-->
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
-            <button type="submit" class="btn btn-primary" role="button">Réserver</button>
-          </div>
-        </form>
+            <!-- Buttons !-->
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+              <button type="submit" class="btn btn-primary" role="button">Réserver</button>
+            </div>
+          </form>
+        </div>
       </div>
-    </div>
     </div>
     {% endfor %}
 
+    <!-- suprise modal -->
+    <div class="modal fade" id="modal-surprise" tabindex="-1" aria-hidden="true">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+
+            <!-- Body !-->
+            <div class="modal-body">
+              <div class="container-fluid">
+                <img style="height:100%; width:100%;" src="{{url_for('static', filename='image/surprise.png')}}">
+              </div>
+            </div>
+
+            <!-- Buttons !-->
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+            </div>
+        </div>
+      </div>
+    </div>
+
     <!-- Connect toilet on clic, ... -->
     <script>
-              $.fn.appointmentPicker = function(options) {
-          this.appointmentPicker = new AppointmentPicker(this[0], options);
-          return this;
-        };
+      $.fn.appointmentPicker = function(options) {
+        this.appointmentPicker = new AppointmentPicker(this[0], options);
+        return this;
+      };
+
+      $("#pick-a-toilet-1").addClass("blink_me")
+      $("#pick-a-toilet-2").addClass("blink_me")
 
       {% for toilet in toilets %}
         var toast_{{ loop.index }} = new bootstrap.Toast($("#popover-{{toilet.id}}-toast"));
@@ -160,6 +204,7 @@
 
         $("#{{ toilet.id }}").mouseenter(function(e)
         {
+          $("#{{ toilet.id }}").addClass("hover_me")
           $("body").css("cursor", "pointer");
           $("#popover-{{toilet.id}}").css(
           {
@@ -171,6 +216,7 @@
 
         $("#{{ toilet.id }}").mouseleave(function(e)
         {
+          $("#{{ toilet.id }}").removeClass("hover_me")
           $("body").css("cursor", "default");
           toast_{{ loop.index }}.hide();
         });
