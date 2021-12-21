@@ -36,7 +36,7 @@ def index():
     # Handle reservation
     if request.method == 'POST':
         for id, hour in request.form.items():
-            reservations.insert_one({ "date": date.today().strftime("%Y/%M/%d"), "id": id[5:], "time": hour })
+            reservations.insert_one({ "date": date.today().strftime("%Y/%M/%d"), "id": id[5:], "time": hour, "user": session['username'] })
 
     # Load plan
     file = open('static/image/plan.svg', mode='r')

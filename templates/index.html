@@ -234,7 +234,7 @@
             startTime: 9,
             endTime: 18,
             leadingZero: true,
-            disabled: [{% for item in toilet.disabled %}'{{item.time}}'{% endfor %}]
+            disabled: [{% for item in toilet.disabled %}'{{item.time}}',{% endfor %}]
         });
       {% endfor %}
     </script>
